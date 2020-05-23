@@ -1,0 +1,12 @@
+version: "3.8"
+services:
+  brain-games:
+    build: .
+    user: "${UID}:${GID}"
+    volumes:
+    - .:/usr/src/app
+    image: hexlet:gendiff
+    container_name: hexlet_gendiff
+#    tty: true
+#    stdin_open: true
+#    entrypoint: /bin/bash
