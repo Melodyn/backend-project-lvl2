@@ -20,6 +20,8 @@ lint:
 	npm run lint
 test:
 	npm run test
+test_dev:
+	npm run test:watch
 asciinema:
 	asciinema rec
 publish:
