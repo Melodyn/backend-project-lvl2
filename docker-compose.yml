@@ -5,6 +5,7 @@ services:
     user: "${UID}:${GID}"
     volumes:
     - .:/usr/src/app
+    - $HOME/asciinema-id:/root/.config/asciinema/install-id
     image: hexlet:gendiff
     container_name: hexlet_gendiff
 #    tty: true

@@ -24,3 +24,7 @@
 * `make start`
 * `gendiff`
 
+## Демонстрация
+
+* https://asciinema.org/a/334006
+

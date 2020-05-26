@@ -17,7 +17,9 @@ container_dependency:
 
 # dev
 lint:
-	npx eslint .
+	npm run lint
+test:
+	npm run test
 asciinema:
 	asciinema rec
 publish:
