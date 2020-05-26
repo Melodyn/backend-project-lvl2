@@ -1,5 +1,8 @@
 # Hexlet: "Вычислитель отличий"
 
+[![Maintainability](https://api.codeclimate.com/v1/badges/060aacab1982204a94f8/maintainability)](https://codeclimate.com/github/Melodyn/backend-project-lvl2/maintainability)
+[![Github Actions](https://github.com/Melodyn/backend-project-lvl2/workflows/Node.js%20CI/badge.svg)](https://github.com/Melodyn/backend-project-lvl2/actions)
+
 Подробнее: https://ru.hexlet.io/professions/backend/projects/46
 
 ## Требования
@@ -23,6 +26,10 @@
 * `make container_start`
 * `make start`
 * `gendiff`
+
+Дополнительно:
+* `make lint` // запустить линтер
+* `make test` // прогнать тесты
 
 ## Демонстрация
 
