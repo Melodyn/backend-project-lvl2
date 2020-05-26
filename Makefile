@@ -11,9 +11,9 @@ container_setup: container_build container_dependency container_start
 container_build:
 	docker-compose build
 container_start:
-	docker-compose run --rm brain-games /bin/bash
+	docker-compose run --rm gendiff /bin/bash
 container_dependency:
-	docker-compose run --rm brain-games make dependency
+	docker-compose run --rm gendiff make dependency
 
 # dev
 lint:
@@ -24,3 +24,5 @@ asciinema:
 	asciinema rec
 publish:
 	npm publish --dry-run
+container_dev_start:
+	docker-compose run --rm gendiff_dev /bin/bash
