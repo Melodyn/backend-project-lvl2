@@ -9,10 +9,11 @@ const expected = {
   '- follow': false,
 };
 
-test('compare', () => {
-  const actualJSON = gendiff('__fixtures__/before.json', '__fixtures__/after.json');
-  expect(actualJSON).toMatchObject(expected);
-
-  const actualYML = gendiff('__fixtures__/before.yml', '__fixtures__/after.yml');
-  expect(actualYML).toMatchObject(expected);
+test.each([
+  ['json'],
+  ['yml'],
+  ['ini'],
+])('compare .%s-files', (format) => {
+  const actual = gendiff(`__fixtures__/before.${format}`, `__fixtures__/after.${format}`);
+  expect(actual).toMatchObject(expected);
 });

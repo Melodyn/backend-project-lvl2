@@ -35,4 +35,5 @@
 
 * parse json: https://asciinema.org/a/334006
 * parse yml: https://asciinema.org/a/334330
+* parse ini: https://asciinema.org/a/334370
 
