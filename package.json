@@ -2,7 +2,7 @@
   "name": "@melodyn/backend-project-lvl2",
   "version": "1.0.0",
   "description": "Compares two configuration files and shows a difference.",
-  "main": "src/comparator.js",
+  "main": "src/index.js",
   "type": "module",
   "bin": {
     "gendiff": "bin/gendiff.js"
@@ -24,6 +24,7 @@
   "homepage": "https://github.com/Melodyn/backend-project-lvl2#readme",
   "dependencies": {
     "commander": "^5.1.0",
+    "js-yaml": "^3.14.0",
     "lodash": "^4.17.15"
   },
   "devDependencies": {

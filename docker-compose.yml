@@ -2,7 +2,6 @@ version: "3.8"
 services:
   gendiff:
     build: .
-    user: "${UID:-1000}:${GID:-1000}"
     volumes:
     - .:/usr/src/app
     image: hexlet:gendiff
@@ -10,7 +9,6 @@ services:
 
   gendiff_dev:
     build: .
-    user: "${UID:-1000}:${GID:-1000}"
     volumes:
     - .:/usr/src/app
     - $HOME/asciinema-id:/root/.config/asciinema/install-id

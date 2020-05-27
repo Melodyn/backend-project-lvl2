@@ -1,9 +1,9 @@
 # usage
-setup: dependency link
-start: link
+start: install
+setup: dependency install
 dependency:
 	npm ci
-link:
+install:
 	npm link
 
 # usage with docker

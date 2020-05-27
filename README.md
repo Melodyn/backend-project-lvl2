@@ -17,15 +17,15 @@
 ## Установка и запуск
 
 Локально:
-* `make setup` // установка (первый раз)
-* `make start` // установка утилиты
-* `gendiff`    // запуск утилиты
+* `make setup`   // установка (первый раз)
+* `make install` // установка утилиты
+* `gendiff -h`   // запуск утилиты (вызов справки)
 
 В контейнере:
 * `make container_setup`
 * `make container_start`
-* `make start`
-* `gendiff`
+* `make install`
+* `gendiff -h`
 
 Дополнительно:
 * `make lint` // запустить линтер
@@ -33,5 +33,6 @@
 
 ## Демонстрация
 
-* https://asciinema.org/a/334006
+* parse json: https://asciinema.org/a/334006
+* parse yml: https://asciinema.org/a/334330
 
