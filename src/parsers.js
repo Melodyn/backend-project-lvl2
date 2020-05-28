@@ -12,8 +12,8 @@ const parseValues = (obj) => _.entries(obj)
     }
   }, {});
 
-export default (format) => ({
+export default (extension) => ({
   json: (data) => JSON.parse(data),
   yml: (data) => yaml.safeLoad(data),
   ini: (data) => parseValues(ini.parse(data)),
-}[format]);
+}[extension]);
