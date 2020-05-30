@@ -1,50 +1,24 @@
 import gendiff from '../src/index.js';
+import * as nested from '../__fixtures__/nested/expected.js';
+import * as flat from '../__fixtures__/flat/expected.js';
 
 const expected = {
-  flat: {
-    '  host': 'hexlet.io',
-    '+ timeout': 20,
-    '- timeout': 50,
-    '- proxy': '123.234.53.22',
-    '+ verbose': true,
-    '- follow': false,
-  },
-  nested: {
-    '  common': {
-      '+ follow': false,
-      '  setting1': 'Value 1',
-      '- setting2': 200,
-      '- setting3': true,
-      '+ setting3': { key: 'value' },
-      '  setting6': {
-        '  key': 'value',
-        '+ ops': 'vops',
-      },
-      '+ setting4': 'blah blah',
-      '+ setting5': { key5: 'value5' },
-    },
-    '  group1': {
-      '+ baz': 'bars',
-      '- baz': 'bas',
-      '  foo': 'bar',
-      '- nest': { key: 'value' },
-      '+ nest': 'str',
-    },
-    '- group2': { abc: 12345 },
-    '+ group3': { fee: 100500 },
-  },
+  flat,
+  nested,
 };
 
 test.each([
-  ['flat', 'json'],
-  ['flat', 'yml'],
-  ['flat', 'ini'],
-  ['nested', 'json'],
-])('compare %s .%s-files', (format, extension) => {
+  ['flat', 'yml', 'stylishObject'],
+  ['flat', 'ini', 'stylishObject'],
+  ['flat', 'json', 'stylishObject'],
+  ['flat', 'json', 'plainObject'],
+  ['nested', 'json', 'stylishObject'],
+  ['nested', 'json', 'plainObject'],
+])('diff %s .%s-files formatted as %s', (format, extension, formatter) => {
   const actual = gendiff(
     `__fixtures__/${format}/before.${extension}`,
     `__fixtures__/${format}/after.${extension}`,
-    'stylish',
+    formatter,
   );
-  expect(JSON.parse(actual)).toMatchObject(expected[format]);
+  expect(actual).toMatchObject(expected[format][formatter]);
 });

@@ -6,9 +6,9 @@ dependency:
 install:
 	npm link
 gendiff_flat:
-	gendiff -f json ./__fixtures__/flat/before.json $(CURDIR)/__fixtures__/flat/after.json
+	gendiff -f plain ./__fixtures__/flat/before.json $(CURDIR)/__fixtures__/flat/after.json
 gendiff_nested:
-	gendiff ./__fixtures__/nested/before.json $(CURDIR)/__fixtures__/nested/after.json
+	gendiff -f plain ./__fixtures__/nested/before.json $(CURDIR)/__fixtures__/nested/after.json
 
 # usage with docker
 container_setup: container_build container_dependency container_start
