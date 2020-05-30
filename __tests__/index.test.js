@@ -44,7 +44,7 @@ test.each([
   const actual = gendiff(
     `__fixtures__/${format}/before.${extension}`,
     `__fixtures__/${format}/after.${extension}`,
-    'json',
+    'stylish',
   );
-  expect(actual).toMatchObject(expected[format]);
+  expect(JSON.parse(actual)).toMatchObject(expected[format]);
 });

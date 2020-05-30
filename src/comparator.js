@@ -1,46 +1,37 @@
 import _ from 'lodash';
+import { isNested } from './helpers.js';
 
-const labels = {
-  added: '+',
-  removed: '-',
-  consist: ' ',
+const deriveState = (previousValue, currentValue, states) => {
+  switch (true) {
+    case (previousValue !== undefined && currentValue === undefined):
+      return states.deleted;
+    case (previousValue === undefined && currentValue !== undefined):
+      return states.added;
+    case (!_.isEqual(previousValue, currentValue)):
+      return states.changed;
+    default:
+      return states.consist;
+  }
 };
 
-const comparator = (before, after) => _.union(_.keys(before), _.keys(after))
-  .reduce(
-    (acc, key) => {
-      const hasCurrentKeyOnBefore = _.has(before, key);
-      const hasCurrentKeyOnAfter = _.has(after, key);
-      const valueBefore = before[key];
-      const valueAfter = after[key];
+const comparator = (before, after, states) => _.union(_.keys(before), _.keys(after))
+  .reduce((acc, key) => {
+    const previousValue = before[key];
+    const currentValue = after[key];
+    const state = deriveState(previousValue, currentValue, states);
+    const processedCurrentValue = isNested(previousValue, currentValue)
+      ? comparator(previousValue, currentValue, states)
+      : currentValue;
 
-      const addedProperty = `${labels.added} ${key}`;
-      const removedProperty = `${labels.removed} ${key}`;
-      const consistProperty = `${labels.consist} ${key}`;
-
-      if (hasCurrentKeyOnBefore && !hasCurrentKeyOnAfter) {
-        return { ...acc, [removedProperty]: valueBefore };
-      }
-      if (!hasCurrentKeyOnBefore && hasCurrentKeyOnAfter) {
-        return { ...acc, [addedProperty]: valueAfter };
-      }
-
-      if (_.isEqual(valueBefore, valueAfter)) {
-        return { ...acc, [consistProperty]: valueBefore };
-      }
-
-      return (_.isObjectLike(valueAfter) && _.isObjectLike(valueBefore))
-        ? {
-          ...acc,
-          [consistProperty]: comparator(valueBefore, valueAfter),
-        }
-        : {
-          ...acc,
-          [addedProperty]: valueAfter,
-          [removedProperty]: valueBefore,
-        };
-    },
-    {},
-  );
+    return {
+      ...acc,
+      [key]: {
+        previousValue,
+        currentValue: processedCurrentValue,
+        state,
+      },
+    };
+  },
+  {});
 
 export default comparator;
