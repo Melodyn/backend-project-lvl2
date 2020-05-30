@@ -8,12 +8,14 @@ const expected = {
 };
 
 test.each([
-  ['flat', 'yml', 'stylishObject'],
-  ['flat', 'ini', 'stylishObject'],
-  ['flat', 'json', 'stylishObject'],
-  ['flat', 'json', 'plainObject'],
-  ['nested', 'json', 'stylishObject'],
-  ['nested', 'json', 'plainObject'],
+  ['flat', 'yml', 'stylish'],
+  ['flat', 'ini', 'stylish'],
+  ['flat', 'json', 'stylish'],
+  ['flat', 'json', 'plain'],
+  ['flat', 'json', 'json'],
+  ['nested', 'json', 'stylish'],
+  ['nested', 'json', 'plain'],
+  ['nested', 'json', 'json'],
 ])('diff %s .%s-files formatted as %s', (format, extension, formatter) => {
   const actual = gendiff(
     `__fixtures__/${format}/before.${extension}`,

@@ -1,4 +1,4 @@
-export const stylishObject = {
+export const stylish = {
   '  common': {
     '+ follow': false,
     '  setting1': 'Value 1',
@@ -23,7 +23,7 @@ export const stylishObject = {
   '+ group3': { fee: 100500 },
 };
 
-export const plainObject = [
+export const plain = [
   "Property 'common.setting2' was deleted",
   "Property 'common.setting3' was changed from true to [complex value]",
   "Property 'common.setting6.ops' was added with value: vops",
@@ -35,3 +35,107 @@ export const plainObject = [
   "Property 'group2' was deleted",
   "Property 'group3' was added with value: [complex value]",
 ];
+
+export const json = {
+  common: {
+    previousValue: {
+      setting1: 'Value 1',
+      setting2: 200,
+      setting3: true,
+      setting6: {
+        key: 'value',
+      },
+    },
+    currentValue: {
+      setting1: {
+        previousValue: 'Value 1',
+        currentValue: 'Value 1',
+        state: 'consist',
+      },
+      setting2: {
+        previousValue: 200,
+        state: 'deleted',
+      },
+      setting3: {
+        previousValue: true,
+        currentValue: {
+          key: 'value',
+        },
+        state: 'changed',
+      },
+      setting6: {
+        previousValue: {
+          key: 'value',
+        },
+        currentValue: {
+          key: {
+            previousValue: 'value',
+            currentValue: 'value',
+            state: 'consist',
+          },
+          ops: {
+            currentValue: 'vops',
+            state: 'added',
+          },
+        },
+        state: 'changed',
+      },
+      follow: {
+        currentValue: false,
+        state: 'added',
+      },
+      setting4: {
+        currentValue: 'blah blah',
+        state: 'added',
+      },
+      setting5: {
+        currentValue: {
+          key5: 'value5',
+        },
+        state: 'added',
+      },
+    },
+    state: 'changed',
+  },
+  group1: {
+    previousValue: {
+      baz: 'bas',
+      foo: 'bar',
+      nest: {
+        key: 'value',
+      },
+    },
+    currentValue: {
+      baz: {
+        previousValue: 'bas',
+        currentValue: 'bars',
+        state: 'changed',
+      },
+      foo: {
+        previousValue: 'bar',
+        currentValue: 'bar',
+        state: 'consist',
+      },
+      nest: {
+        previousValue: {
+          key: 'value',
+        },
+        currentValue: 'str',
+        state: 'changed',
+      },
+    },
+    state: 'changed',
+  },
+  group2: {
+    previousValue: {
+      abc: 12345,
+    },
+    state: 'deleted',
+  },
+  group3: {
+    currentValue: {
+      fee: 100500,
+    },
+    state: 'added',
+  },
+};

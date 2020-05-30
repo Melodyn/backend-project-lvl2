@@ -11,10 +11,10 @@ const states = {
   consist: 'consist',
 };
 
-export default (filepathBefore, filepathAfter, outputFormat) => {
+export default (filepathBefore, filepathAfter, outputFormat, shouldBeString = false) => {
   const extension = path.extname(filepathBefore).substring(1);
   const parser = parsers(extension);
-  const formatter = formatters(outputFormat, states);
+  const formatter = formatters(outputFormat, states, shouldBeString);
 
   const [dataBefore, dataAfter] = [filepathBefore, filepathAfter]
     .map((filepath) => path.resolve(filepath))

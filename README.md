@@ -33,9 +33,10 @@
 
 ## Демонстрация
 
-* diff plain json formatted as stylish: https://asciinema.org/a/334006
-* diff plain yml formatted as stylish: https://asciinema.org/a/334330
-* diff plain ini formatted as stylish: https://asciinema.org/a/334370
+* diff flat json formatted as stylish: https://asciinema.org/a/334006
+* diff flat yml formatted as stylish: https://asciinema.org/a/334330
+* diff flat ini formatted as stylish: https://asciinema.org/a/334370
 * diff nested json formatted as stylish: https://asciinema.org/a/334838
 * diff nested json formatted as plain: https://asciinema.org/a/335274
+* diff flat json formatted as json: https://asciinema.org/a/335285
 

@@ -29,4 +29,7 @@ const plain = (data, states) => _.entries(data)
   }, [])
   .filter(_.identity);
 
-export default plain;
+export default (data, states, shouldBeString) => {
+  const formatted = plain(data, states);
+  return shouldBeString ? formatted.join('\n') : formatted;
+};
