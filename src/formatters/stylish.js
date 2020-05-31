@@ -26,7 +26,7 @@ const stylish = (data, states) => {
   }, {});
 };
 
-export default (data, states, shouldBeString) => {
+export default (data, shouldBeString, states) => {
   const formatted = stylish(data, states);
   return shouldBeString ? JSON.stringify(formatted, null, 2) : formatted;
 };

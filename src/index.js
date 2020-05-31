@@ -1,8 +1,8 @@
 import fs from 'fs';
 import path from 'path';
 import comparator from './comparator.js';
-import parsers from './parsers.js';
-import formatters from './formatters/index.js';
+import parser from './parsers.js';
+import formatter from './formatters/index.js';
 
 const states = {
   added: 'added',
@@ -11,16 +11,14 @@ const states = {
   consist: 'consist',
 };
 
-export default (filepathBefore, filepathAfter, outputFormat, shouldBeString = false) => {
-  const extension = path.extname(filepathBefore).substring(1);
-  const parser = parsers(extension);
-  const formatter = formatters(outputFormat, states, shouldBeString);
+const getFullPath = (filepath) => path.resolve(process.cwd(), filepath);
+const getExtension = (filepath) => path.extname(filepath).substring(1);
+const readFile = (filepath) => fs.readFileSync(getFullPath(filepath), 'utf8');
 
+export default (filepathBefore, filepathAfter, outputFormat, shouldBeString = false) => {
   const [dataBefore, dataAfter] = [filepathBefore, filepathAfter]
-    .map((filepath) => path.resolve(filepath))
-    .map((fullPath) => fs.readFileSync(fullPath, { encoding: 'utf8' }))
-    .map(parser);
+    .map((filepath) => parser(readFile(filepath), getExtension(filepath)));
 
   const diff = comparator(dataBefore, dataAfter, states);
-  return formatter(diff);
+  return formatter(outputFormat, diff, shouldBeString, states);
 };

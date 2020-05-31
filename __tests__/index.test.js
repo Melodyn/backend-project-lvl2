@@ -19,6 +19,8 @@ test.each([
   ['flat', 'json', 'stylish'],
   ['flat', 'json', 'plain'],
   ['flat', 'json', 'json'],
+  ['nested', 'yml', 'stylish'],
+  ['nested', 'ini', 'stylish'],
   ['nested', 'json', 'stylish'],
   ['nested', 'json', 'plain'],
   ['nested', 'json', 'json'],

@@ -2,18 +2,24 @@ import yaml from 'js-yaml';
 import ini from 'ini';
 import _ from 'lodash';
 
+const JSONparse = (value) => {
+  try {
+    return JSON.parse(value);
+  } catch {
+    return value;
+  }
+};
+
 const parseValues = (obj) => _.entries(obj)
   .reduce((acc, [key, value]) => {
-    try {
-      const parsedValue = JSON.parse(value);
-      return { ...acc, [key]: parsedValue };
-    } catch {
-      return { ...acc, [key]: value };
-    }
+    const parsedValue = JSONparse(value);
+    return { ...acc, [key]: _.isObjectLike(parsedValue) ? parseValues(parsedValue) : parsedValue };
   }, {});
 
-export default (extension) => ({
+const parsers = {
   json: (data) => JSON.parse(data),
   yml: (data) => yaml.safeLoad(data),
   ini: (data) => parseValues(ini.parse(data)),
-}[extension]);
+};
+
+export default (data, extension) => parsers[extension](data);
