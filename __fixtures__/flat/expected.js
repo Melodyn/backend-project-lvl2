@@ -14,27 +14,37 @@ export const plain = [
   "Property 'verbose' was added with value: true",
 ];
 
-export const json = {
-  host: {
+export const json = [
+  {
+    key: 'host',
+    state: 'consist',
+    type: 'flat',
     previousValue: 'hexlet.io',
     currentValue: 'hexlet.io',
-    state: 'consist',
   },
-  timeout: {
+  {
+    key: 'timeout',
+    state: 'changed',
+    type: 'flat',
     previousValue: 50,
     currentValue: 20,
-    state: 'changed',
   },
-  proxy: {
+  {
+    key: 'proxy',
+    state: 'deleted',
+    type: 'flat',
     previousValue: '123.234.53.22',
-    state: 'deleted',
   },
-  follow: {
+  {
+    key: 'follow',
+    state: 'deleted',
+    type: 'flat',
     previousValue: false,
-    state: 'deleted',
   },
-  verbose: {
-    currentValue: true,
+  {
+    key: 'verbose',
     state: 'added',
+    type: 'flat',
+    currentValue: true,
   },
-};
+];

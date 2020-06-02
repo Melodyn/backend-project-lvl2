@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { isNested } from '../helpers.js';
+import { checkIsNested } from '../helpers.js';
 
 const stylish = (data, states) => {
   const labels = { deleted: '-', added: '+', consist: ' ' };
@@ -11,7 +11,7 @@ const stylish = (data, states) => {
       case states.added:
         return { ...acc, [`${labels.added} ${key}`]: currentValue };
       case states.changed: {
-        if (isNested(previousValue, currentValue)) {
+        if (checkIsNested(previousValue, currentValue)) {
           return { ...acc, [`${labels.consist} ${key}`]: stylish(currentValue, states) };
         }
         return {

@@ -5,6 +5,8 @@ dependency:
 	npm ci
 install:
 	npm link
+nested:
+	gendiff -f json ./__fixtures__/nested/before.json ./__fixtures__/nested/after.json
 
 # usage with docker
 container_setup: container_build container_dependency container_start

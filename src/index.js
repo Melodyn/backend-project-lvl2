@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import comparator from './comparator.js';
+import toDiffTree from './toDiffTree.js';
 import parser from './parsers.js';
 import formatter from './formatters/index.js';
 
@@ -11,7 +11,12 @@ const states = {
   consist: 'consist',
 };
 
-const getFullPath = (filepath) => path.resolve(process.cwd(), filepath);
+const types = {
+  flat: 'flat',
+  nested: 'nested',
+};
+
+const getFullPath = (filepath) => path.resolve(filepath);
 const getExtension = (filepath) => path.extname(filepath).substring(1);
 const readFile = (filepath) => fs.readFileSync(getFullPath(filepath), 'utf8');
 
@@ -19,6 +24,6 @@ export default (filepathBefore, filepathAfter, outputFormat, shouldBeString = fa
   const [dataBefore, dataAfter] = [filepathBefore, filepathAfter]
     .map((filepath) => parser(readFile(filepath), getExtension(filepath)));
 
-  const diff = comparator(dataBefore, dataAfter, states);
-  return formatter(outputFormat, diff, shouldBeString, states);
+  const diffTree = toDiffTree(dataBefore, dataAfter, states, types);
+  return formatter(outputFormat, diffTree, shouldBeString, states, types);
 };

@@ -36,106 +36,120 @@ export const plain = [
   "Property 'group3' was added with value: [complex value]",
 ];
 
-export const json = {
-  common: {
-    previousValue: {
-      setting1: 'Value 1',
-      setting2: 200,
-      setting3: true,
-      setting6: {
-        key: 'value',
-      },
-    },
-    currentValue: {
-      setting1: {
+export const json = [
+  {
+    key: 'common',
+    state: 'changed',
+    type: 'nested',
+    children: [
+      {
+        key: 'setting1',
+        state: 'consist',
+        type: 'flat',
         previousValue: 'Value 1',
         currentValue: 'Value 1',
-        state: 'consist',
       },
-      setting2: {
-        previousValue: 200,
+      {
+        key: 'setting2',
         state: 'deleted',
+        type: 'flat',
+        previousValue: 200,
       },
-      setting3: {
+      {
+        key: 'setting3',
+        state: 'changed',
+        type: 'flat',
         previousValue: true,
         currentValue: {
           key: 'value',
         },
-        state: 'changed',
       },
-      setting6: {
-        previousValue: {
-          key: 'value',
-        },
-        currentValue: {
-          key: {
+      {
+        key: 'setting6',
+        state: 'changed',
+        type: 'nested',
+        children: [
+          {
+            key: 'key',
+            state: 'consist',
+            type: 'flat',
             previousValue: 'value',
             currentValue: 'value',
-            state: 'consist',
           },
-          ops: {
-            currentValue: 'vops',
+          {
+            key: 'ops',
             state: 'added',
+            type: 'flat',
+            currentValue: 'vops',
           },
-        },
-        state: 'changed',
+        ],
       },
-      follow: {
+      {
+        key: 'follow',
+        state: 'added',
+        type: 'flat',
         currentValue: false,
-        state: 'added',
       },
-      setting4: {
+      {
+        key: 'setting4',
+        state: 'added',
+        type: 'flat',
         currentValue: 'blah blah',
-        state: 'added',
       },
-      setting5: {
+      {
+        key: 'setting5',
+        state: 'added',
+        type: 'flat',
         currentValue: {
           key5: 'value5',
         },
-        state: 'added',
       },
-    },
-    state: 'changed',
+    ],
   },
-  group1: {
-    previousValue: {
-      baz: 'bas',
-      foo: 'bar',
-      nest: {
-        key: 'value',
-      },
-    },
-    currentValue: {
-      baz: {
+  {
+    key: 'group1',
+    state: 'changed',
+    type: 'nested',
+    children: [
+      {
+        key: 'baz',
+        state: 'changed',
+        type: 'flat',
         previousValue: 'bas',
         currentValue: 'bars',
-        state: 'changed',
       },
-      foo: {
+      {
+        key: 'foo',
+        state: 'consist',
+        type: 'flat',
         previousValue: 'bar',
         currentValue: 'bar',
-        state: 'consist',
       },
-      nest: {
+      {
+        key: 'nest',
+        state: 'changed',
+        type: 'flat',
         previousValue: {
           key: 'value',
         },
         currentValue: 'str',
-        state: 'changed',
       },
-    },
-    state: 'changed',
+    ],
   },
-  group2: {
+  {
+    key: 'group2',
+    state: 'deleted',
+    type: 'flat',
     previousValue: {
       abc: 12345,
     },
-    state: 'deleted',
   },
-  group3: {
+  {
+    key: 'group3',
+    state: 'added',
+    type: 'flat',
     currentValue: {
       fee: 100500,
     },
-    state: 'added',
   },
-};
+];

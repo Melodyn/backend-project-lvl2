@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { isNested } from './helpers.js';
+import { checkIsNested } from './helpers.js';
 
 const deriveState = (previousValue, currentValue, states) => {
   switch (true) {
@@ -14,24 +14,24 @@ const deriveState = (previousValue, currentValue, states) => {
   }
 };
 
-const comparator = (before, after, states) => _.union(_.keys(before), _.keys(after))
-  .reduce((acc, key) => {
+const toDiffTree = (before, after, states, types) => _.union(_.keys(before), _.keys(after))
+  .map((key) => {
     const previousValue = before[key];
     const currentValue = after[key];
     const state = deriveState(previousValue, currentValue, states);
-    const processedCurrentValue = isNested(previousValue, currentValue)
-      ? comparator(previousValue, currentValue, states)
-      : currentValue;
+    const isNested = checkIsNested(previousValue, currentValue);
+    const value = isNested
+      ? {
+        children: toDiffTree(previousValue, currentValue, states, types),
+      }
+      : { previousValue, currentValue };
 
     return {
-      ...acc,
-      [key]: {
-        previousValue,
-        currentValue: processedCurrentValue,
-        state,
-      },
+      key,
+      state,
+      type: isNested ? types.nested : types.flat,
+      ...value,
     };
-  },
-  {});
+  });
 
-export default comparator;
+export default toDiffTree;
