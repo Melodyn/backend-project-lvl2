@@ -1,7 +1,12 @@
 import _ from 'lodash';
-import { checkIsNested } from './helpers.js';
+import { states, types } from './enums.js';
 
-const deriveState = (previousValue, currentValue, states) => {
+export const checkIsNested = (previousValue, currentValue) => (
+  _.isObjectLike(previousValue)
+  && _.isObjectLike(currentValue)
+);
+
+const deriveState = (previousValue, currentValue) => {
   switch (true) {
     case (previousValue !== undefined && currentValue === undefined):
       return states.deleted;
@@ -14,22 +19,22 @@ const deriveState = (previousValue, currentValue, states) => {
   }
 };
 
-const toDiffTree = (before, after, states, types) => _.union(_.keys(before), _.keys(after))
+const toDiffTree = (before, after) => _.union(_.keys(before), _.keys(after))
   .map((key) => {
     const previousValue = before[key];
     const currentValue = after[key];
-    const state = deriveState(previousValue, currentValue, states);
+    const state = deriveState(previousValue, currentValue);
     const isNested = checkIsNested(previousValue, currentValue);
     const value = isNested
       ? {
-        children: toDiffTree(previousValue, currentValue, states, types),
+        children: toDiffTree(previousValue, currentValue),
       }
       : { previousValue, currentValue };
 
     return {
-      key,
+      type: (isNested ? types.nested : types.flat),
       state,
-      type: isNested ? types.nested : types.flat,
+      key,
       ...value,
     };
   });

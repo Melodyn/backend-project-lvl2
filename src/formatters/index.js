@@ -8,6 +8,6 @@ const formatters = {
   json,
 };
 
-export default (formatterName, data, shouldBeString, states, types) => (
-  formatters[formatterName](data, shouldBeString, states, types)
+export default (formatterName, data, shouldBeString) => (
+  formatters[formatterName](data, shouldBeString)
 );

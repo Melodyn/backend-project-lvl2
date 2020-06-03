@@ -38,68 +38,68 @@ export const plain = [
 
 export const json = [
   {
-    key: 'common',
-    state: 'changed',
     type: 'nested',
+    state: 'changed',
+    key: 'common',
     children: [
       {
-        key: 'setting1',
-        state: 'consist',
         type: 'flat',
+        state: 'consist',
+        key: 'setting1',
         previousValue: 'Value 1',
         currentValue: 'Value 1',
       },
       {
-        key: 'setting2',
-        state: 'deleted',
         type: 'flat',
+        state: 'deleted',
+        key: 'setting2',
         previousValue: 200,
       },
       {
-        key: 'setting3',
-        state: 'changed',
         type: 'flat',
+        state: 'changed',
+        key: 'setting3',
         previousValue: true,
         currentValue: {
           key: 'value',
         },
       },
       {
-        key: 'setting6',
-        state: 'changed',
         type: 'nested',
+        state: 'changed',
+        key: 'setting6',
         children: [
           {
-            key: 'key',
-            state: 'consist',
             type: 'flat',
+            state: 'consist',
+            key: 'key',
             previousValue: 'value',
             currentValue: 'value',
           },
           {
-            key: 'ops',
-            state: 'added',
             type: 'flat',
+            state: 'added',
+            key: 'ops',
             currentValue: 'vops',
           },
         ],
       },
       {
-        key: 'follow',
-        state: 'added',
         type: 'flat',
+        state: 'added',
+        key: 'follow',
         currentValue: false,
       },
       {
-        key: 'setting4',
-        state: 'added',
         type: 'flat',
+        state: 'added',
+        key: 'setting4',
         currentValue: 'blah blah',
       },
       {
-        key: 'setting5',
-        state: 'added',
         type: 'flat',
+        state: 'added',
+        key: 'setting5',
         currentValue: {
           key5: 'value5',
         },
@@ -107,28 +107,28 @@ export const json = [
     ],
   },
   {
-    key: 'group1',
-    state: 'changed',
     type: 'nested',
+    state: 'changed',
+    key: 'group1',
     children: [
       {
-        key: 'baz',
-        state: 'changed',
         type: 'flat',
+        state: 'changed',
+        key: 'baz',
         previousValue: 'bas',
         currentValue: 'bars',
       },
       {
-        key: 'foo',
-        state: 'consist',
         type: 'flat',
+        state: 'consist',
+        key: 'foo',
         previousValue: 'bar',
         currentValue: 'bar',
       },
       {
-        key: 'nest',
-        state: 'changed',
         type: 'flat',
+        state: 'changed',
+        key: 'nest',
         previousValue: {
           key: 'value',
         },
@@ -137,17 +137,17 @@ export const json = [
     ],
   },
   {
-    key: 'group2',
-    state: 'deleted',
     type: 'flat',
+    state: 'deleted',
+    key: 'group2',
     previousValue: {
       abc: 12345,
     },
   },
   {
-    key: 'group3',
-    state: 'added',
     type: 'flat',
+    state: 'added',
+    key: 'group3',
     currentValue: {
       fee: 100500,
     },

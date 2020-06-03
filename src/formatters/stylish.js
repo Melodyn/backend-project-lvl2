@@ -1,18 +1,21 @@
-import _ from 'lodash';
-import { checkIsNested } from '../helpers.js';
+import { states, types } from '../enums.js';
 
-const stylish = (data, states) => {
-  const labels = { deleted: '-', added: '+', consist: ' ' };
-  return _.entries(data).reduce((acc, [key, value]) => {
-    const { state, previousValue, currentValue } = value;
+const labels = { deleted: '-', added: '+', consist: ' ' };
+
+const stylish = (diffTree) => diffTree
+  .reduce((acc, node) => {
+    const {
+      type, state, key, previousValue, currentValue, children,
+    } = node;
+
     switch (state) {
       case states.deleted:
         return { ...acc, [`${labels.deleted} ${key}`]: previousValue };
       case states.added:
         return { ...acc, [`${labels.added} ${key}`]: currentValue };
       case states.changed: {
-        if (checkIsNested(previousValue, currentValue)) {
-          return { ...acc, [`${labels.consist} ${key}`]: stylish(currentValue, states) };
+        if (type === types.nested) {
+          return { ...acc, [`${labels.consist} ${key}`]: stylish(children) };
         }
         return {
           ...acc,
@@ -23,10 +26,10 @@ const stylish = (data, states) => {
       default:
         return { ...acc, [`${labels.consist} ${key}`]: currentValue };
     }
-  }, {});
-};
+  },
+  {});
 
-export default (data, shouldBeString, states) => {
-  const formatted = stylish(data, states);
+export default (data, shouldBeString) => {
+  const formatted = stylish(data);
   return shouldBeString ? JSON.stringify(formatted, null, 2) : formatted;
 };

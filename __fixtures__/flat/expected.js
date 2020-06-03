@@ -16,35 +16,35 @@ export const plain = [
 
 export const json = [
   {
-    key: 'host',
-    state: 'consist',
     type: 'flat',
+    state: 'consist',
+    key: 'host',
     previousValue: 'hexlet.io',
     currentValue: 'hexlet.io',
   },
   {
-    key: 'timeout',
-    state: 'changed',
     type: 'flat',
+    state: 'changed',
+    key: 'timeout',
     previousValue: 50,
     currentValue: 20,
   },
   {
-    key: 'proxy',
-    state: 'deleted',
     type: 'flat',
+    state: 'deleted',
+    key: 'proxy',
     previousValue: '123.234.53.22',
   },
   {
-    key: 'follow',
-    state: 'deleted',
     type: 'flat',
+    state: 'deleted',
+    key: 'follow',
     previousValue: false,
   },
   {
-    key: 'verbose',
-    state: 'added',
     type: 'flat',
+    state: 'added',
+    key: 'verbose',
     currentValue: true,
   },
 ];

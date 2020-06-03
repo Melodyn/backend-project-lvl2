@@ -9,7 +9,7 @@
   },
   "scripts": {
     "lint": "eslint .",
-    "test": "npx -n --experimental-vm-modules -n --no-warnings jest",
+    "test": "npx -n --experimental-vm-modules -n --no-warnings jest --coverage",
     "test:watch": "npx -n --experimental-vm-modules -n --no-warnings jest --watchAll"
   },
   "repository": {

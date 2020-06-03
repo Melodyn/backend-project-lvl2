@@ -1,11 +1,12 @@
 import _ from 'lodash';
+import { states, types } from '../enums.js';
 
-const processValue = (value) => (_.isObject(value) ? '[complex value]' : value);
+const processValue = (value) => (_.isObjectLike(value) ? '[complex value]' : value);
 
-const plain = (diffTree, states, types) => diffTree
+const plain = (diffTree) => diffTree
   .map((node) => {
     const {
-      state, type, key, previousValue, currentValue, children,
+      type, state, key, previousValue, currentValue, children,
     } = node;
     const processedPrevValue = processValue(previousValue);
     const processedCurrValue = processValue(currentValue);
@@ -22,7 +23,7 @@ const plain = (diffTree, states, types) => diffTree
         const processedChildren = children.map(
           ({ key: childKey, ...other }) => ({ key: `${key}.${childKey}`, ...other }),
         );
-        return plain(processedChildren, states, types);
+        return plain(processedChildren);
       }
       default:
         return '';
@@ -31,7 +32,7 @@ const plain = (diffTree, states, types) => diffTree
   .flat()
   .filter(_.identity);
 
-export default (data, shouldBeString, states, types) => {
-  const formatted = plain(data, states, types);
+export default (data, shouldBeString) => {
+  const formatted = plain(data);
   return shouldBeString ? formatted.join('\n') : formatted;
 };
