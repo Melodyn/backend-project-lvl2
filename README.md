@@ -8,6 +8,7 @@
 ## Требования
 
 * Node.js >= 14
+* npm >= 6
 * make >= 4
 
 Или:
@@ -17,19 +18,20 @@
 ## Установка и запуск
 
 Локально:
-* `make setup`   // установка (первый раз)
-* `make install` // установка утилиты
-* `gendiff -h`   // запуск утилиты (вызов справки)
+* `make setup` установка (первый раз)
+* `make install` установка утилиты
+* `gendiff -h` запуск утилиты (вызов справки)
 
 В контейнере:
-* `make container_setup`
-* `make container_start`
-* `make install`
+* `make container_setup` первый запуск (установка зависимостей) 
+
+* `make container_start` поднять контейнер с приложением
+* `make install` установить приложение
 * `gendiff -h`
 
 Дополнительно:
-* `make lint` // запустить линтер
-* `make test` // прогнать тесты
+* `make lint` проверка линтером
+* `make test` проверка тестами
 
 ## Демонстрация
 
@@ -38,5 +40,4 @@
 * diff flat ini formatted as stylish: https://asciinema.org/a/334370
 * diff nested json formatted as stylish: https://asciinema.org/a/334838
 * diff nested json formatted as plain: https://asciinema.org/a/335274
-* diff flat json formatted as json: https://asciinema.org/a/335285
-
+* diff flat json formatted as json: https://asciinema.org/a/336188
