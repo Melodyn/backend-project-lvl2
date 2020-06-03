@@ -3,9 +3,9 @@
 
 # But not these files...
 !__fixtures__/*
-!__tests____/*
-!__bin____/*
-!__src____/*
+!__tests__/*
+!bin/*
+!src/*
 !.github/*
 
 !.gitignore
