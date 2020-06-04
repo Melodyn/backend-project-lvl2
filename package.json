@@ -2,13 +2,12 @@
   "name": "@melodyn/backend-project-lvl2",
   "version": "1.0.0",
   "description": "Compares two configuration files and shows a difference.",
-  "main": "src/index.js",
+  "main": "index.js",
   "type": "module",
   "bin": {
     "gendiff": "bin/gendiff.js"
   },
   "scripts": {
-    "lint": "eslint .",
     "test": "npx -n --experimental-vm-modules -n --no-warnings jest",
     "test:watch": "npx -n --experimental-vm-modules -n --no-warnings jest --watchAll"
   },

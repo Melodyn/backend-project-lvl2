@@ -1,8 +1,8 @@
 import fs from 'fs';
 import path from 'path';
-import toDiffTree from './toDiffTree.js';
-import parser from './parsers.js';
-import formatter from './formatters/index.js';
+import toDiffTree from './src/toDiffTree.js';
+import parser from './src/parsers.js';
+import formatter from './src/formatters';
 
 const getFullPath = (filepath) => path.resolve(filepath);
 const getExtension = (filepath) => path.extname(filepath).substring(1);

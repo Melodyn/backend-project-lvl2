@@ -1,18 +1,3 @@
 # Ignore everything
-*
-
-# But not these files...
-!__fixtures__/*
-!__tests__/*
-!bin/*
-!src/*
-!.github/*
-
-!.gitignore
-!.eslintrc.yml
-!docker-compose.yml
-!Dockerfile
-!Makefile
-!package.json
-!package-lock.json
-!README.md
+node_modules
+.idea

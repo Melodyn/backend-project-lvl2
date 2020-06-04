@@ -6,8 +6,6 @@ dependency:
 install:
 	npm link
 
-
-
 # usage with docker
 container_setup: container_build container_dependency container_start
 container_build:
@@ -19,7 +17,7 @@ container_dependency:
 
 # dev
 lint:
-	npm run lint
+	npx eslint .
 test:
 	npm run test
 test_dev:

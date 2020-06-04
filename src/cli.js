@@ -1,5 +1,5 @@
 import program from 'commander';
-import gendiff from './index.js';
+import gendiff from '../index.js';
 
 export default () => {
   program.version('1.0.0')

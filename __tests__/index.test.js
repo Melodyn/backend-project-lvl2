@@ -1,5 +1,5 @@
 import path from 'path';
-import gendiff from '../src/index.js';
+import gendiff from '../index.js';
 import * as nested from '../__fixtures__/nested/expected.js';
 import * as flat from '../__fixtures__/flat/expected.js';
 
