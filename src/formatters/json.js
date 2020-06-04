@@ -1,1 +1,1 @@
-export default (data, shouldBeString) => (shouldBeString ? JSON.stringify(data, null, 2) : data);
+export default (data) => JSON.stringify(data, null, 2);

@@ -29,7 +29,4 @@ const stylish = (diffTree) => diffTree
   },
   {});
 
-export default (data, shouldBeString) => {
-  const formatted = stylish(data);
-  return shouldBeString ? JSON.stringify(formatted, null, 2) : formatted;
-};
+export default (data) => JSON.stringify(stylish(data), null, 2);

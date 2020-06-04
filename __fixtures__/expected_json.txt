@@ -1,0 +1,117 @@
+[
+  {
+    "type": "nested",
+    "state": "changed",
+    "key": "common",
+    "children": [
+      {
+        "type": "flat",
+        "state": "consist",
+        "key": "setting1",
+        "previousValue": "Value 1",
+        "currentValue": "Value 1"
+      },
+      {
+        "type": "flat",
+        "state": "deleted",
+        "key": "setting2",
+        "previousValue": 200
+      },
+      {
+        "type": "flat",
+        "state": "changed",
+        "key": "setting3",
+        "previousValue": true,
+        "currentValue": {
+          "key": "value"
+        }
+      },
+      {
+        "type": "nested",
+        "state": "changed",
+        "key": "setting6",
+        "children": [
+          {
+            "type": "flat",
+            "state": "consist",
+            "key": "key",
+            "previousValue": "value",
+            "currentValue": "value"
+          },
+          {
+            "type": "flat",
+            "state": "added",
+            "key": "ops",
+            "currentValue": "vops"
+          }
+        ]
+      },
+      {
+        "type": "flat",
+        "state": "added",
+        "key": "follow",
+        "currentValue": false
+      },
+      {
+        "type": "flat",
+        "state": "added",
+        "key": "setting4",
+        "currentValue": "blah blah"
+      },
+      {
+        "type": "flat",
+        "state": "added",
+        "key": "setting5",
+        "currentValue": {
+          "key5": "value5"
+        }
+      }
+    ]
+  },
+  {
+    "type": "nested",
+    "state": "changed",
+    "key": "group1",
+    "children": [
+      {
+        "type": "flat",
+        "state": "changed",
+        "key": "baz",
+        "previousValue": "bas",
+        "currentValue": "bars"
+      },
+      {
+        "type": "flat",
+        "state": "consist",
+        "key": "foo",
+        "previousValue": "bar",
+        "currentValue": "bar"
+      },
+      {
+        "type": "flat",
+        "state": "changed",
+        "key": "nest",
+        "previousValue": {
+          "key": "value"
+        },
+        "currentValue": "str"
+      }
+    ]
+  },
+  {
+    "type": "flat",
+    "state": "deleted",
+    "key": "group2",
+    "previousValue": {
+      "abc": 12345
+    }
+  },
+  {
+    "type": "flat",
+    "state": "added",
+    "key": "group3",
+    "currentValue": {
+      "fee": 100500
+    }
+  }
+]

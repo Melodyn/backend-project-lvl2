@@ -32,7 +32,4 @@ const plain = (diffTree) => diffTree
   .flat()
   .filter(_.identity);
 
-export default (data, shouldBeString) => {
-  const formatted = plain(data);
-  return shouldBeString ? formatted.join('\n') : formatted;
-};
+export default (data) => plain(data).join('\n');

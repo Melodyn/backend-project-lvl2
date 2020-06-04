@@ -7,7 +7,7 @@ export default () => {
     .option('-f, --format [type]', 'output format', 'stylish')
     .arguments('<filepathBefore> <filepathAfter>')
     .action((filepathBefore, filepathAfter) => {
-      const diff = gendiff(filepathBefore, filepathAfter, program.format, true);
+      const diff = gendiff(filepathBefore, filepathAfter, program.format);
       console.log(diff);
     })
     .parse(process.argv);

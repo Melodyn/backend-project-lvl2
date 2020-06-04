@@ -1,33 +1,36 @@
 import path from 'path';
+import fs from 'fs';
 import gendiff from '../index.js';
-import * as nested from '../__fixtures__/nested/expected.js';
-import * as flat from '../__fixtures__/flat/expected.js';
 
-const expected = {
-  flat,
-  nested,
-};
+const buildFixturePath = (filename, fixturesBasePath = '__fixtures__') => path.resolve(
+  path.join(fixturesBasePath, filename),
+);
 
-const buildPath = (format, extension, fixturesBasePath = '__fixtures__') => [
-  path.resolve(`${fixturesBasePath}/${format}/before.${extension}`),
-  path.resolve(`${fixturesBasePath}/${format}/after.${extension}`),
-];
-
-const formatters = ['stylish', 'plain', 'json'];
+const outputFormats = ['stylish', 'plain', 'json'];
 const extensions = ['yml', 'ini', 'json'];
-const types = ['flat', 'nested'];
+const expectedOutputByFormat = {};
 
-const combinations = types
-  .map((type) => extensions.map(
-    (extension) => formatters.map(
-      (format) => [type, extension, format],
-    ),
-  )
-    .flat())
-  .flat();
+const combinations = extensions.flatMap(
+  (extension) => outputFormats.map((format) => [extension, format]),
+);
 
-test.each(combinations)('diff %s .%s-files formatted as %s', (format, extension, formatter) => {
-  const [beforePath, afterPath] = buildPath(format, extension);
-  const actual = gendiff(beforePath, afterPath, formatter);
-  expect(actual).toMatchObject(expected[format][formatter]);
+beforeAll(() => {
+  outputFormats.forEach(
+    (format) => {
+      const content = fs.readFileSync(
+        buildFixturePath(`expected_${format}.txt`),
+        'utf8',
+      );
+      expectedOutputByFormat[format] = content.trim();
+    },
+  );
+});
+
+test.each(combinations)('diff .%s-file formatted as %s', (extension, outputFormat) => {
+  const beforePath = buildFixturePath(`before.${extension}`);
+  const afterPath = buildFixturePath(`after.${extension}`);
+
+  const actual = gendiff(beforePath, afterPath, outputFormat);
+  const expected = expectedOutputByFormat[outputFormat];
+  expect(actual).toEqual(expected);
 });
