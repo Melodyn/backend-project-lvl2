@@ -1,35 +1,34 @@
 import _ from 'lodash';
-import { states, types } from '../enums.js';
+import types from '../types.js';
 
-const processValue = (value) => (_.isObjectLike(value) ? '[complex value]' : value);
+const processValue = (value) => (_.isObject(value) ? '[complex value]' : value);
 
-const plain = (diffTree) => diffTree
-  .map((node) => {
+const formatPlain = (diffTree) => diffTree
+  .flatMap((node) => {
     const {
-      type, state, key, previousValue, currentValue, children,
+      type, key, previousValue, currentValue, children,
     } = node;
     const processedPrevValue = processValue(previousValue);
     const processedCurrValue = processValue(currentValue);
 
-    switch (state) {
-      case states.deleted:
+    switch (type) {
+      case types.deleted:
         return `Property '${key}' was deleted`;
-      case states.added:
+      case types.added:
         return `Property '${key}' was added with value: ${processedCurrValue}`;
-      case states.changed: {
-        if (type === types.flat) {
-          return `Property '${key}' was changed from ${processedPrevValue} to ${processedCurrValue}`;
-        }
+      case types.changed:
+        return `Property '${key}' was changed from ${processedPrevValue} to ${processedCurrValue}`;
+      case types.nested: {
         const processedChildren = children.map(
           ({ key: childKey, ...other }) => ({ key: `${key}.${childKey}`, ...other }),
         );
-        return plain(processedChildren);
+        return formatPlain(processedChildren);
       }
+      case types.consist:
       default:
         return '';
     }
   })
-  .flat()
   .filter(_.identity);
 
-export default (data) => plain(data).join('\n');
+export default (data) => formatPlain(data).join('\n');

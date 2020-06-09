@@ -1,25 +1,20 @@
 [
   {
     "type": "nested",
-    "state": "changed",
     "key": "common",
     "children": [
       {
-        "type": "flat",
-        "state": "consist",
+        "type": "consist",
         "key": "setting1",
-        "previousValue": "Value 1",
         "currentValue": "Value 1"
       },
       {
-        "type": "flat",
-        "state": "deleted",
+        "type": "deleted",
         "key": "setting2",
         "previousValue": 200
       },
       {
-        "type": "flat",
-        "state": "changed",
+        "type": "changed",
         "key": "setting3",
         "previousValue": true,
         "currentValue": {
@@ -28,39 +23,32 @@
       },
       {
         "type": "nested",
-        "state": "changed",
         "key": "setting6",
         "children": [
           {
-            "type": "flat",
-            "state": "consist",
+            "type": "consist",
             "key": "key",
-            "previousValue": "value",
             "currentValue": "value"
           },
           {
-            "type": "flat",
-            "state": "added",
+            "type": "added",
             "key": "ops",
             "currentValue": "vops"
           }
         ]
       },
       {
-        "type": "flat",
-        "state": "added",
+        "type": "added",
         "key": "follow",
         "currentValue": false
       },
       {
-        "type": "flat",
-        "state": "added",
+        "type": "added",
         "key": "setting4",
         "currentValue": "blah blah"
       },
       {
-        "type": "flat",
-        "state": "added",
+        "type": "added",
         "key": "setting5",
         "currentValue": {
           "key5": "value5"
@@ -70,26 +58,21 @@
   },
   {
     "type": "nested",
-    "state": "changed",
     "key": "group1",
     "children": [
       {
-        "type": "flat",
-        "state": "changed",
+        "type": "changed",
         "key": "baz",
         "previousValue": "bas",
         "currentValue": "bars"
       },
       {
-        "type": "flat",
-        "state": "consist",
+        "type": "consist",
         "key": "foo",
-        "previousValue": "bar",
         "currentValue": "bar"
       },
       {
-        "type": "flat",
-        "state": "changed",
+        "type": "changed",
         "key": "nest",
         "previousValue": {
           "key": "value"
@@ -99,16 +82,14 @@
     ]
   },
   {
-    "type": "flat",
-    "state": "deleted",
+    "type": "deleted",
     "key": "group2",
     "previousValue": {
       "abc": 12345
     }
   },
   {
-    "type": "flat",
-    "state": "added",
+    "type": "added",
     "key": "group3",
     "currentValue": {
       "fee": 100500

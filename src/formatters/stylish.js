@@ -1,32 +1,31 @@
-import { states, types } from '../enums.js';
+import types from '../types.js';
 
 const labels = { deleted: '-', added: '+', consist: ' ' };
 
-const stylish = (diffTree) => diffTree
+const formatStylish = (diffTree) => diffTree
   .reduce((acc, node) => {
     const {
-      type, state, key, previousValue, currentValue, children,
+      type, key, previousValue, currentValue, children,
     } = node;
 
-    switch (state) {
-      case states.deleted:
+    switch (type) {
+      case types.deleted:
         return { ...acc, [`${labels.deleted} ${key}`]: previousValue };
-      case states.added:
+      case types.added:
         return { ...acc, [`${labels.added} ${key}`]: currentValue };
-      case states.changed: {
-        if (type === types.nested) {
-          return { ...acc, [`${labels.consist} ${key}`]: stylish(children) };
-        }
+      case types.changed:
         return {
           ...acc,
           [`${labels.deleted} ${key}`]: previousValue,
           [`${labels.added} ${key}`]: currentValue,
         };
-      }
+      case types.nested:
+        return { ...acc, [`${labels.consist} ${key}`]: formatStylish(children) };
+      case types.consist:
       default:
         return { ...acc, [`${labels.consist} ${key}`]: currentValue };
     }
   },
   {});
 
-export default (data) => JSON.stringify(stylish(data), null, 2);
+export default (data) => JSON.stringify(formatStylish(data), null, 2);

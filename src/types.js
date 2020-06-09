@@ -1,11 +1,7 @@
-export const states = {
+export default {
   added: 'added',
   deleted: 'deleted',
   changed: 'changed',
   consist: 'consist',
-};
-
-export const types = {
-  flat: 'flat',
   nested: 'nested',
 };

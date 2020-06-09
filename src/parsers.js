@@ -21,10 +21,12 @@ const normalizeObject = (obj) => _.entries(obj)
     };
   }, {});
 
+const parseIni = (data) => normalizeObject(ini.parse(data));
+
 const parsers = {
-  json: (data) => JSON.parse(data),
-  yml: (data) => yaml.safeLoad(data),
-  ini: (data) => normalizeObject(ini.parse(data)),
+  json: JSON.parse,
+  yml: yaml.safeLoad,
+  ini: parseIni,
 };
 
 export default (data, extension) => parsers[extension](data);

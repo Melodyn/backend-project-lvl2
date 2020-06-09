@@ -1,41 +1,48 @@
 import _ from 'lodash';
-import { states, types } from './enums.js';
-
-export const checkIsNested = (previousValue, currentValue) => (
-  _.isObjectLike(previousValue)
-  && _.isObjectLike(currentValue)
-);
-
-const deriveState = (previousValue, currentValue) => {
-  switch (true) {
-    case (previousValue !== undefined && currentValue === undefined):
-      return states.deleted;
-    case (previousValue === undefined && currentValue !== undefined):
-      return states.added;
-    case (!_.isEqual(previousValue, currentValue)):
-      return states.changed;
-    default:
-      return states.consist;
-  }
-};
+import types from './types.js';
 
 const toDiffTree = (before, after) => _.union(_.keys(before), _.keys(after))
   .map((key) => {
     const previousValue = before[key];
     const currentValue = after[key];
-    const state = deriveState(previousValue, currentValue);
-    const isNested = checkIsNested(previousValue, currentValue);
-    const value = isNested
-      ? {
+
+    if (!_.has(before, key) && _.has(after, key)) {
+      return {
+        type: types.added,
+        key,
+        currentValue,
+      };
+    }
+
+    if (_.has(before, key) && !_.has(after, key)) {
+      return {
+        type: types.deleted,
+        key,
+        previousValue,
+      };
+    }
+
+    if (_.isObject(previousValue) && _.isObject(currentValue)) {
+      return {
+        type: types.nested,
+        key,
         children: toDiffTree(previousValue, currentValue),
-      }
-      : { previousValue, currentValue };
+      };
+    }
+
+    if (previousValue !== currentValue) {
+      return {
+        type: types.changed,
+        key,
+        previousValue,
+        currentValue,
+      };
+    }
 
     return {
-      type: (isNested ? types.nested : types.flat),
-      state,
+      type: types.consist,
       key,
-      ...value,
+      currentValue,
     };
   });
 
