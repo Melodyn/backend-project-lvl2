@@ -18,15 +18,14 @@ const formatPlain = (diffTree) => diffTree
         return `Property '${key}' was added with value: ${processedCurrValue}`;
       case types.changed:
         return `Property '${key}' was changed from ${processedPrevValue} to ${processedCurrValue}`;
-      case types.nested: {
-        const processedChildren = children.map(
+      case types.nested:
+        return formatPlain(children.map(
           ({ key: childKey, ...other }) => ({ key: `${key}.${childKey}`, ...other }),
-        );
-        return formatPlain(processedChildren);
-      }
+        ));
       case types.consist:
-      default:
         return '';
+      default:
+        throw new Error(`Unexpected type ${type}`);
     }
   })
   .filter(_.identity);

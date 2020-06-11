@@ -58,8 +58,9 @@ const formatStylish = (diffTree) => diffTree
       case types.nested:
         return { ...acc, [`${labels.consist} ${key}`]: formatStylish(children) };
       case types.consist:
-      default:
         return { ...acc, [`${labels.consist} ${key}`]: currentValue };
+      default:
+        throw new Error(`Unexpected type ${type}`);
     }
   },
   {});
