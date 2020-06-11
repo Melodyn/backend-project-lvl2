@@ -3,29 +3,37 @@ import types from '../types.js';
 
 const labels = { deleted: '-', added: '+', consist: ' ' };
 
-const stringify = (sourceObject, indentSymbol = ' ', indentCount = 2) => {
-  const openingSymbol = '{';
-  const closingSymbol = '}';
+// like JSON.stringify(object, null, 2), but without quotes
+const stringify = (sourceObject, replacer, startLineOffset = 0, endLineOffset = 0) => {
+  const openSymbol = '{';
+  const closeSymbol = '}';
+  const indentSymbol = replacer || ' ';
+  const linesInitAcc = [];
 
   const iter = (linesAcc, currentObject, countOfIndents) => {
-    const indent = indentSymbol.repeat(countOfIndents);
+    const openIndent = indentSymbol.repeat(countOfIndents);
+    const closeIndent = indentSymbol.repeat(countOfIndents + endLineOffset);
+
     const lines = _.entries(currentObject).flatMap(([key, value]) => {
-      const prefixedKey = indent + key;
-      // console.log({ key, indent, countOfIndents });
+      const preparedKey = openIndent + key;
+
       if (_.isObject(value)) {
-        const processedValues = iter([], value, countOfIndents + indentCount);
-        const openLine = `${prefixedKey}: ${openingSymbol}`;
-        const closeLine = indent + closingSymbol;
+        const deepCountOfIndents = countOfIndents + startLineOffset + endLineOffset;
+        const processedValues = iter(linesInitAcc, value, deepCountOfIndents);
+        const openLine = `${preparedKey}: ${openSymbol}`;
+        const closeLine = closeIndent + closeSymbol;
+
         return [openLine, ...processedValues, closeLine];
       }
-      return `${prefixedKey}: ${value}`;
+
+      return `${preparedKey}: ${value}`;
     });
 
     return lines;
   };
 
-  const middleLines = iter([], sourceObject, indentCount);
-  const finalLines = [openingSymbol, ...middleLines, closingSymbol];
+  const middleLines = iter(linesInitAcc, sourceObject, startLineOffset);
+  const finalLines = [openSymbol, ...middleLines, closeSymbol];
 
   return finalLines.join('\n');
 };
@@ -56,4 +64,4 @@ const formatStylish = (diffTree) => diffTree
   },
   {});
 
-export default (data) => stringify(formatStylish(data));
+export default (data) => stringify(formatStylish(data), null, 2, 2);
