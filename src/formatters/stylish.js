@@ -8,34 +8,30 @@ const stringify = (sourceObject, replacer, startLineOffset = 0, endLineOffset = 
   const openSymbol = '{';
   const closeSymbol = '}';
   const indentSymbol = replacer || ' ';
-  const linesInitAcc = [];
 
-  const iter = (linesAcc, currentObject, countOfIndents) => {
-    const openIndent = indentSymbol.repeat(countOfIndents);
-    const closeIndent = indentSymbol.repeat(countOfIndents + endLineOffset);
-
+  const iter = (currentObject, openLineSymbol, closeLineSymbol, countOfIndents) => {
     const lines = _.entries(currentObject).flatMap(([key, value]) => {
+      const openIndent = indentSymbol.repeat(countOfIndents);
+      const closeIndent = indentSymbol.repeat(countOfIndents + endLineOffset);
       const preparedKey = openIndent + key;
 
       if (_.isObject(value)) {
-        const deepCountOfIndents = countOfIndents + startLineOffset + endLineOffset;
-        const processedValues = iter(linesInitAcc, value, deepCountOfIndents);
         const openLine = `${preparedKey}: ${openSymbol}`;
         const closeLine = closeIndent + closeSymbol;
+        const deepCountOfIndents = countOfIndents + startLineOffset + endLineOffset;
 
-        return [openLine, ...processedValues, closeLine];
+        return iter(value, openLine, closeLine, deepCountOfIndents);
       }
 
       return `${preparedKey}: ${value}`;
     });
 
-    return lines;
+    return [openLineSymbol, ...lines, closeLineSymbol];
   };
 
-  const middleLines = iter(linesInitAcc, sourceObject, startLineOffset);
-  const finalLines = [openSymbol, ...middleLines, closeSymbol];
+  const lines = iter(sourceObject, openSymbol, closeSymbol, startLineOffset);
 
-  return finalLines.join('\n');
+  return lines.join('\n');
 };
 
 const formatStylish = (diffTree) => diffTree
