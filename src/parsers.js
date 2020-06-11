@@ -2,26 +2,21 @@ import yaml from 'js-yaml';
 import ini from 'ini';
 import _ from 'lodash';
 
-const normalizeType = (value) => {
-  try {
-    return JSON.parse(value);
-  } catch {
-    return value;
-  }
+const normalizeValue = (value) => {
+  const numerableValue = parseInt(value, 10);
+  return _.isNaN(numerableValue) ? value : numerableValue;
 };
-
-const normalizeObject = (obj) => _.entries(obj)
+const iniNormalizer = (obj) => _.entries(obj)
   .reduce((acc, [key, value]) => {
-    const normalizedValue = normalizeType(value);
+    const normalizedValue = normalizeValue(value);
     return {
       ...acc,
       [key]: _.isObjectLike(normalizedValue)
-        ? normalizeObject(normalizedValue)
+        ? iniNormalizer(normalizedValue)
         : normalizedValue,
     };
   }, {});
-
-const parseIni = (data) => normalizeObject(ini.parse(data));
+const parseIni = (data) => iniNormalizer(ini.parse(data));
 
 const parsers = {
   json: JSON.parse,
