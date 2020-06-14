@@ -2,11 +2,12 @@ import _ from 'lodash';
 import types from './types.js';
 
 const toDiffTree = (before, after) => _.union(_.keys(before), _.keys(after))
+  .sort()
   .map((key) => {
     const previousValue = before[key];
     const currentValue = after[key];
 
-    if (!_.has(before, key) && _.has(after, key)) {
+    if (!_.has(before, key)) {
       return {
         type: types.added,
         key,
@@ -14,7 +15,7 @@ const toDiffTree = (before, after) => _.union(_.keys(before), _.keys(after))
       };
     }
 
-    if (_.has(before, key) && !_.has(after, key)) {
+    if (!_.has(after, key)) {
       return {
         type: types.deleted,
         key,

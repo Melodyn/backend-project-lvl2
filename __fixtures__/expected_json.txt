@@ -4,6 +4,11 @@
     "key": "common",
     "children": [
       {
+        "type": "added",
+        "key": "follow",
+        "currentValue": false
+      },
+      {
         "type": "consist",
         "key": "setting1",
         "currentValue": "Value 1"
@@ -22,6 +27,18 @@
         }
       },
       {
+        "type": "added",
+        "key": "setting4",
+        "currentValue": "blah blah"
+      },
+      {
+        "type": "added",
+        "key": "setting5",
+        "currentValue": {
+          "key5": "value5"
+        }
+      },
+      {
         "type": "nested",
         "key": "setting6",
         "children": [
@@ -36,23 +53,6 @@
             "currentValue": "vops"
           }
         ]
-      },
-      {
-        "type": "added",
-        "key": "follow",
-        "currentValue": false
-      },
-      {
-        "type": "added",
-        "key": "setting4",
-        "currentValue": "blah blah"
-      },
-      {
-        "type": "added",
-        "key": "setting5",
-        "currentValue": {
-          "key5": "value5"
-        }
       }
     ]
   },

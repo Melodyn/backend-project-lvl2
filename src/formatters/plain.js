@@ -23,7 +23,7 @@ const formatPlain = (diffTree) => diffTree
           ({ key: childKey, ...other }) => ({ key: `${key}.${childKey}`, ...other }),
         ));
       case types.consist:
-        return '';
+        return null;
       default:
         throw new Error(`Unexpected type ${type}`);
     }
