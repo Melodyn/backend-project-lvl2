@@ -27,17 +27,17 @@ const stringify = (data, indent) => {
 };
 
 const formatStylish = (diffTree) => {
-  const iter = (tree, currentKeysOffset) => tree.flatMap((node) => {
-    const indent = indentSymbol.repeat(currentKeysOffset);
+  const iter = (tree, deep) => tree.flatMap((node) => {
+    const indent = indentSymbol.repeat(deep);
     const {
       type, key, previousValue, currentValue, children,
     } = node;
 
     switch (type) {
       case types.deleted:
-        return [`${addPrefix(key, indent, labels.deleted)}: ${stringify(previousValue, indent)}`];
+        return `${addPrefix(key, indent, labels.deleted)}: ${stringify(previousValue, indent)}`;
       case types.added:
-        return [`${addPrefix(key, indent, labels.added)}: ${stringify(currentValue, indent)}`];
+        return `${addPrefix(key, indent, labels.added)}: ${stringify(currentValue, indent)}`;
       case types.changed:
         return [
           `${addPrefix(key, indent, labels.deleted)}: ${stringify(previousValue, indent)}`,
@@ -46,19 +46,19 @@ const formatStylish = (diffTree) => {
       case types.nested:
         return [
           `${addPrefix(key, indent, labels.consist)}: ${openSymbol}`,
-          ...(iter(children, currentKeysOffset + deepKeyOffset)),
+          ...(iter(children, deep + deepKeyOffset)),
           `${addPrefix(closeSymbol, indent)}`,
         ];
       case types.consist:
-        return [`${addPrefix(key, indent, labels.consist)}: ${stringify(currentValue, indent)}`];
+        return `${addPrefix(key, indent, labels.consist)}: ${stringify(currentValue, indent)}`;
       default:
         throw new Error(`Unexpected type ${type}`);
     }
   });
 
-  const strings = iter(diffTree, 1);
+  const lines = iter(diffTree, 1);
 
-  return [openSymbol, ...strings, closeSymbol];
+  return [openSymbol, ...lines, closeSymbol];
 };
 
 export default (data) => formatStylish(data).join('\n');
