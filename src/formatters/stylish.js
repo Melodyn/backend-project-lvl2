@@ -27,8 +27,8 @@ const stringify = (data, indent) => {
 };
 
 const formatStylish = (diffTree) => {
-  const iter = (tree, deep) => tree.flatMap((node) => {
-    const indent = indentSymbol.repeat(deep);
+  const iter = (tree, depth) => tree.flatMap((node) => {
+    const indent = indentSymbol.repeat(depth);
     const {
       type, key, previousValue, currentValue, children,
     } = node;
@@ -46,7 +46,7 @@ const formatStylish = (diffTree) => {
       case types.nested:
         return [
           `${addPrefix(key, indent, labels.consist)}: ${openSymbol}`,
-          ...(iter(children, deep + deepKeyOffset)),
+          ...(iter(children, depth + deepKeyOffset)),
           `${addPrefix(closeSymbol, indent)}`,
         ];
       case types.consist:
