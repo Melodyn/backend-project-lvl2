@@ -9,7 +9,8 @@
   },
   "scripts": {
     "test": "npx -n --experimental-vm-modules -n --no-warnings jest",
-    "test:watch": "npx -n --experimental-vm-modules -n --no-warnings jest --watchAll"
+    "test:watch": "npx -n --experimental-vm-modules -n --no-warnings jest --watchAll",
+    "test:coverage": "npx -n --experimental-vm-modules -n --no-warnings jest --coverage"
   },
   "repository": {
     "type": "git",

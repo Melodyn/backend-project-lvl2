@@ -6,16 +6,12 @@ const normalizeValue = (value) => {
   const numerableValue = parseInt(value, 10);
   return _.isNaN(numerableValue) ? value : numerableValue;
 };
-const normalizeIni = (obj) => _.entries(obj)
-  .reduce((acc, [key, value]) => {
-    const normalizedValue = normalizeValue(value);
-    return {
-      ...acc,
-      [key]: _.isObjectLike(normalizedValue)
-        ? normalizeIni(normalizedValue)
-        : normalizedValue,
-    };
-  }, {});
+const normalizeIni = (obj) => _.mapValues(obj, (value) => {
+  const normalizedValue = normalizeValue(value);
+  return _.isObjectLike(normalizedValue)
+    ? normalizeIni(normalizedValue)
+    : normalizedValue;
+});
 const parseIni = (data) => normalizeIni(ini.parse(data));
 
 const parsers = {

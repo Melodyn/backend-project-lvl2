@@ -22,6 +22,8 @@ test:
 	npm run test
 test_dev:
 	npm run test:watch
+test_coverage:
+	npm run test:coverage
 asciinema:
 	asciinema rec
 publish:
