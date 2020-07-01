@@ -26,10 +26,9 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - run: make dependency
     - run: make lint
-    - run: make test_coverage
-    - name: Publish code coverage
+    - name: Test & publish code coverage
       uses: paambaati/codeclimate-action@v2.6.0
       env:
         CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
       with:
-        coverageCommand: echo
+        coverageCommand: make test_coverage
