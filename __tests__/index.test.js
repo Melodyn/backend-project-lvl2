@@ -23,7 +23,7 @@ beforeAll(() => {
 });
 
 test.each(combinations)('diff .%s-file formatted as %s', (extension, outputFormat) => {
-  const beforePath = getFixturePath(`before.${extension}`);
+  const beforePath = getFixturePath(`befre.${extension}`);
   const afterPath = getFixturePath(`after.${extension}`);
 
   const actual = gendiff(beforePath, afterPath, outputFormat);
