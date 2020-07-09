@@ -1,11 +1,19 @@
-import { buildPath, readFile } from '../src/filesToolkit.js';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import gendiff from '../index.js';
+
+/* eslint-disable no-underscore-dangle */
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const getFixturePath = (filename) => path.resolve(__dirname, '..', '__fixtures__', filename);
+const readFile = (pathToFile) => fs.readFileSync(getFixturePath(pathToFile), 'utf-8');
 
 const outputFormats = ['stylish', 'plain', 'json'];
 const extensions = ['yml', 'ini', 'json'];
 const expectedOutputByFormat = {};
 
-const getFixturePath = (filename) => buildPath('__fixtures__', filename);
 const combinations = extensions.flatMap(
   (extension) => outputFormats.map((format) => [extension, format]),
 );
@@ -27,5 +35,3 @@ test.each(combinations)('diff .%s-file formatted as %s', (extension, outputForma
   const expected = expectedOutputByFormat[outputFormat];
   expect(actual).toEqual(expected);
 });
-
-test('relative & full path', () => {});
