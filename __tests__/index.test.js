@@ -1,14 +1,7 @@
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import { readFile, buildPath } from '../src/fileToolkit';
 import gendiff from '../index.js';
 
-/* eslint-disable no-underscore-dangle */
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-const getFixturePath = (filename) => path.resolve(__dirname, '..', '__fixtures__', filename);
-const readFile = (pathToFile) => fs.readFileSync(getFixturePath(pathToFile), 'utf-8');
+const getFixturePath = (filename) => buildPath('__fixtures__', filename);
 
 const outputFormats = ['stylish', 'plain', 'json'];
 const extensions = ['yml', 'ini', 'json'];

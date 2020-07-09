@@ -24,6 +24,7 @@ test_dev:
 	npm test -s -- --watchAll
 test_coverage:
 	npm test -s -- --coverage
+
 asciinema:
 	asciinema rec
 publish:
