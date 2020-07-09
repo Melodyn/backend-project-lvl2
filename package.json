@@ -4,13 +4,15 @@
   "description": "Compares two configuration files and shows a difference.",
   "main": "index.js",
   "type": "module",
+  "jest": {
+    "testEnvironment": "node",
+    "transform": {}
+  },
   "bin": {
     "gendiff": "bin/gendiff.js"
   },
   "scripts": {
-    "test": "npx -n --experimental-vm-modules -n --no-warnings jest",
-    "test:watch": "npx -n --experimental-vm-modules -n --no-warnings jest --watchAll",
-    "test:coverage": "npx -n --experimental-vm-modules -n --no-warnings jest --coverage"
+    "test": "npx -n '--experimental-vm-modules --no-warnings' jest"
   },
   "repository": {
     "type": "git",

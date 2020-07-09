@@ -1,14 +1,11 @@
-import path from 'path';
-import fs from 'fs';
+import { buildPath, readFile } from '../src/filesToolkit.js';
 import gendiff from '../index.js';
-
-const getFixturePath = (filename) => path.join('__fixtures__', filename);
-const readFile = (filename) => fs.readFileSync(getFixturePath(filename), 'utf8');
 
 const outputFormats = ['stylish', 'plain', 'json'];
 const extensions = ['yml', 'ini', 'json'];
 const expectedOutputByFormat = {};
 
+const getFixturePath = (filename) => buildPath('__fixtures__', filename);
 const combinations = extensions.flatMap(
   (extension) => outputFormats.map((format) => [extension, format]),
 );
@@ -16,7 +13,7 @@ const combinations = extensions.flatMap(
 beforeAll(() => {
   outputFormats.forEach(
     (format) => {
-      const content = readFile(`expected_${format}.txt`);
+      const content = readFile(getFixturePath(`expected_${format}.txt`));
       expectedOutputByFormat[format] = content.trim();
     },
   );
@@ -30,3 +27,5 @@ test.each(combinations)('diff .%s-file formatted as %s', (extension, outputForma
   const expected = expectedOutputByFormat[outputFormat];
   expect(actual).toEqual(expected);
 });
+
+test('relative & full path', () => {});

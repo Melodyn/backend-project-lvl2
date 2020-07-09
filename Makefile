@@ -19,11 +19,11 @@ container_dependency:
 lint:
 	npx eslint .
 test:
-	npm run test
+	npm test -s
 test_dev:
-	npm run test:watch
+	npm test -s -- --watchAll
 test_coverage:
-	npm run test:coverage
+	npm test -s -- --coverage
 asciinema:
 	asciinema rec
 publish:
