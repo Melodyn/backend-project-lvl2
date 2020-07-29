@@ -2,17 +2,10 @@ import yaml from 'js-yaml';
 import ini from 'ini';
 import _ from 'lodash';
 
-const normalizeValue = (value) => {
-  const numerableValue = parseInt(value, 10);
-  return _.isNaN(numerableValue) ? value : numerableValue;
-};
-const normalizeIni = (obj) => _.mapValues(obj, (value) => {
-  const normalizedValue = normalizeValue(value);
-  return _.isObjectLike(normalizedValue)
-    ? normalizeIni(normalizedValue)
-    : normalizedValue;
-});
-const parseIni = (data) => normalizeIni(ini.parse(data));
+const numberifyValues = (obj) => _.mapValues(obj, (value) => (_.isObjectLike(value)
+  ? numberifyValues(value)
+  : (parseFloat(value) || value)));
+const parseIni = (data) => numberifyValues(ini.parse(data));
 
 const parsers = {
   json: JSON.parse,
