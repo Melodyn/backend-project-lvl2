@@ -21,10 +21,10 @@ beforeAll(() => {
 });
 
 test.each(combinations)('diff .%s-file formatted as %s', (extension, outputFormat) => {
-  const beforePath = getFixturePath(`before.${extension}`);
-  const afterPath = getFixturePath(`after.${extension}`);
+  const filepath1 = getFixturePath(`file1.${extension}`);
+  const filepath2 = getFixturePath(`file2.${extension}`);
 
-  const actual = gendiff(beforePath, afterPath, outputFormat);
+  const actual = gendiff(filepath1, filepath2, outputFormat);
   const expected = expectedOutputByFormat[outputFormat];
   expect(actual).toEqual(expected);
 });

@@ -1,12 +1,12 @@
-import { readFile, getExtension } from './src/fileToolkit';
+import { readFile, getExtension } from './src/fileToolkit.js';
 import toDiffTree from './src/toDiffTree.js';
 import parse from './src/parsers.js';
 import format from './src/formatters/index.js';
 
-export default (filepathBefore, filepathAfter, outputFormat) => {
-  const dataBefore = parse(readFile(filepathBefore), getExtension(filepathBefore));
-  const dataAfter = parse(readFile(filepathAfter), getExtension(filepathAfter));
+export default (filepath1, filepath2, outputFormat) => {
+  const data1 = parse(readFile(filepath1), getExtension(filepath1));
+  const data2 = parse(readFile(filepath2), getExtension(filepath2));
 
-  const diffTree = toDiffTree(dataBefore, dataAfter);
-  return format(outputFormat, diffTree);
+  const diffTree = toDiffTree(data1, data2);
+  return format(diffTree, outputFormat);
 };

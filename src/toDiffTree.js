@@ -1,49 +1,49 @@
 import _ from 'lodash';
 import types from './types.js';
 
-const toDiffTree = (before, after) => _.union(_.keys(before), _.keys(after))
+const toDiffTree = (data1, data2) => _.union(_.keys(data1), _.keys(data2))
   .sort()
   .map((key) => {
-    const previousValue = before[key];
-    const currentValue = after[key];
+    const value1 = data1[key];
+    const value2 = data2[key];
 
-    if (!_.has(before, key)) {
+    if (!_.has(data1, key)) {
       return {
         type: types.added,
         key,
-        currentValue,
+        value2,
       };
     }
 
-    if (!_.has(after, key)) {
+    if (!_.has(data2, key)) {
       return {
         type: types.deleted,
         key,
-        previousValue,
+        value1,
       };
     }
 
-    if (_.isObject(previousValue) && _.isObject(currentValue)) {
+    if (_.isObject(value1) && _.isObject(value2)) {
       return {
         type: types.nested,
         key,
-        children: toDiffTree(previousValue, currentValue),
+        children: toDiffTree(value1, value2),
       };
     }
 
-    if (previousValue !== currentValue) {
+    if (value1 !== value2) {
       return {
         type: types.changed,
         key,
-        previousValue,
-        currentValue,
+        value1,
+        value2,
       };
     }
 
     return {
-      type: types.consist,
+      type: types.unchanged,
       key,
-      currentValue,
+      value2,
     };
   });
 

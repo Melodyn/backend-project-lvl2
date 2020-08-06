@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import types from '../types.js';
 
-const labels = { deleted: '-', added: '+', consist: ' ' };
+const labels = { deleted: '-', added: '+', unchanged: ' ' };
 const indentSymbol = '  ';
 const deepKeyOffset = 2;
 const openSymbol = '{';
@@ -15,7 +15,7 @@ const stringify = (data, indent) => {
   }
 
   const nestedIndent = addPrefix(indentSymbol, indent);
-  const strings = [
+  const lines = [
     openSymbol,
     ...(_.entries(data).flatMap(
       ([key, value]) => `${addPrefix(key, nestedIndent)}: ${stringify(value, nestedIndent)}`,
@@ -23,36 +23,36 @@ const stringify = (data, indent) => {
     addPrefix(closeSymbol, indent),
   ];
 
-  return strings.join('\n');
+  return lines.join('\n');
 };
 
 const formatStylish = (diffTree) => {
   const iter = (tree, depth) => tree.flatMap((node) => {
     const indent = indentSymbol.repeat(depth);
     const {
-      type, key, previousValue, currentValue, children,
+      type, key, value1, value2, children,
     } = node;
 
     switch (type) {
       case types.deleted:
-        return `${addPrefix(key, indent, labels.deleted)}: ${stringify(previousValue, indent)}`;
+        return `${addPrefix(key, indent, labels.deleted)}: ${stringify(value1, indent)}`;
       case types.added:
-        return `${addPrefix(key, indent, labels.added)}: ${stringify(currentValue, indent)}`;
+        return `${addPrefix(key, indent, labels.added)}: ${stringify(value2, indent)}`;
       case types.changed:
         return [
-          `${addPrefix(key, indent, labels.deleted)}: ${stringify(previousValue, indent)}`,
-          `${addPrefix(key, indent, labels.added)}: ${stringify(currentValue, indent)}`,
+          `${addPrefix(key, indent, labels.deleted)}: ${stringify(value1, indent)}`,
+          `${addPrefix(key, indent, labels.added)}: ${stringify(value2, indent)}`,
         ];
       case types.nested:
         return [
-          `${addPrefix(key, indent, labels.consist)}: ${openSymbol}`,
+          `${addPrefix(key, indent, labels.unchanged)}: ${openSymbol}`,
           ...(iter(children, depth + deepKeyOffset)),
           `${addPrefix(closeSymbol, indent)}`,
         ];
-      case types.consist:
-        return `${addPrefix(key, indent, labels.consist)}: ${stringify(currentValue, indent)}`;
+      case types.unchanged:
+        return `${addPrefix(key, indent, labels.unchanged)}: ${stringify(value2, indent)}`;
       default:
-        throw new Error(`Unexpected type ${type}`);
+        throw new Error(`Unexpected node type ${type}`);
     }
   });
 

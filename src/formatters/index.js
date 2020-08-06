@@ -9,4 +9,4 @@ const formatters = {
   json: formatJSON,
 };
 
-export default (formatterName, data) => formatters[formatterName](data);
+export default (data, format) => formatters[format](data);

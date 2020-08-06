@@ -1,5 +1,13 @@
 #!/usr/bin/env node
 
-import run from '../src/cli.js';
+import program from 'commander';
+import gendiff from '../index.js';
 
-run();
+program.version('1.0.0')
+  .description('Compares two configuration files and shows a difference.')
+  .option('-f, --format [type]', 'output format', 'stylish')
+  .arguments('<filepath1> <filepath2>')
+  .action((filepath1, filepath2) => {
+    console.log(gendiff(filepath1, filepath2, program.format));
+  })
+  .parse(process.argv);

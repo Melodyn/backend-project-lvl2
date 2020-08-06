@@ -2,6 +2,6 @@ export default {
   added: 'added',
   deleted: 'deleted',
   changed: 'changed',
-  consist: 'consist',
+  unchanged: 'unchanged',
   nested: 'nested',
 };

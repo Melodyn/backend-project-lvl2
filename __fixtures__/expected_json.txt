@@ -6,35 +6,35 @@
       {
         "type": "added",
         "key": "follow",
-        "currentValue": false
+        "value2": false
       },
       {
-        "type": "consist",
+        "type": "unchanged",
         "key": "setting1",
-        "currentValue": "Value 1"
+        "value2": "Value 1"
       },
       {
         "type": "deleted",
         "key": "setting2",
-        "previousValue": 200
+        "value1": 200
       },
       {
         "type": "changed",
         "key": "setting3",
-        "previousValue": true,
-        "currentValue": {
+        "value1": true,
+        "value2": {
           "key": "value"
         }
       },
       {
         "type": "added",
         "key": "setting4",
-        "currentValue": "blah blah"
+        "value2": "blah blah"
       },
       {
         "type": "added",
         "key": "setting5",
-        "currentValue": {
+        "value2": {
           "key5": "value5"
         }
       },
@@ -43,14 +43,26 @@
         "key": "setting6",
         "children": [
           {
-            "type": "consist",
+            "type": "nested",
+            "key": "doge",
+            "children": [
+              {
+                "type": "changed",
+                "key": "wow",
+                "value1": "too much",
+                "value2": "so much"
+              }
+            ]
+          },
+          {
+            "type": "unchanged",
             "key": "key",
-            "currentValue": "value"
+            "value2": "value"
           },
           {
             "type": "added",
             "key": "ops",
-            "currentValue": "vops"
+            "value2": "vops"
           }
         ]
       }
@@ -63,36 +75,44 @@
       {
         "type": "changed",
         "key": "baz",
-        "previousValue": "bas",
-        "currentValue": "bars"
+        "value1": "bas",
+        "value2": "bars"
       },
       {
-        "type": "consist",
+        "type": "unchanged",
         "key": "foo",
-        "currentValue": "bar"
+        "value2": "bar"
       },
       {
         "type": "changed",
         "key": "nest",
-        "previousValue": {
+        "value1": {
           "key": "value"
         },
-        "currentValue": "str"
+        "value2": "str"
       }
     ]
   },
   {
     "type": "deleted",
     "key": "group2",
-    "previousValue": {
-      "abc": 12345
+    "value1": {
+      "abc": 12345,
+      "deep": {
+        "id": 45
+      }
     }
   },
   {
     "type": "added",
     "key": "group3",
-    "currentValue": {
-      "fee": 100500
+    "value2": {
+      "fee": 100500,
+      "deep": {
+        "id": {
+          "number": 45
+        }
+      }
     }
   }
 ]
