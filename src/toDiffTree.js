@@ -1,8 +1,7 @@
 import _ from 'lodash';
 import types from './types.js';
 
-const toDiffTree = (data1, data2) => _.union(_.keys(data1), _.keys(data2))
-  .sort()
+const toDiffTree = (data1, data2) => _.sortBy(_.union(_.keys(data1), _.keys(data2)))
   .map((key) => {
     const value1 = data1[key];
     const value2 = data2[key];

@@ -1,7 +1,7 @@
 import { readFile, buildPath } from '../src/fileToolkit';
 import gendiff from '../index.js';
 
-const getFixturePath = (filename) => buildPath('__fixtures__', filename);
+const getFixturePath = (filename) => buildPath(['__fixtures__', filename]);
 
 const outputFormats = ['stylish', 'plain', 'json'];
 const extensions = ['yml', 'ini', 'json'];
@@ -14,7 +14,7 @@ const combinations = extensions.flatMap(
 beforeAll(() => {
   outputFormats.forEach(
     (format) => {
-      const content = readFile(getFixturePath(`expected_${format}.txt`));
+      const content = readFile([getFixturePath(`expected_${format}.txt`)]);
       expectedOutputByFormat[format] = content.trim();
     },
   );
