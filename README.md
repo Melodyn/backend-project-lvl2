@@ -2,7 +2,8 @@
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/060aacab1982204a94f8/maintainability)](https://codeclimate.com/github/Melodyn/backend-project-lvl2/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/060aacab1982204a94f8/test_coverage)](https://codeclimate.com/github/Melodyn/backend-project-lvl2/test_coverage)
-[![Github Actions](https://github.com/Melodyn/backend-project-lvl2/workflows/Node.js%20CI/badge.svg)](https://github.com/Melodyn/backend-project-lvl2/actions)
+[![Github Actions](https://github.com/Melodyn/backend-project-lvl2/workflows/Node.js%20CI/badge.svg)](https://github.com/Melodyn/backend-project-lvl3/actions?query=workflow%3A%22Node.js+CI%22)
+[![Hexlet check](https://github.com/Melodyn/backend-project-lvl3/workflows/hexlet-check/badge.svg)](https://github.com/Melodyn/backend-project-lvl3/actions?query=workflow%3Ahexlet-check)
 
 Подробнее: https://ru.hexlet.io/professions/backend/projects/46
 
