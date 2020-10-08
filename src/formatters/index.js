@@ -12,6 +12,6 @@ export default (data, format) => {
     case 'json':
       return formatJSON(data);
     default:
-      throw new Error(`Unexpected output format ${format}`)
+      throw new Error(`Unexpected output format ${format}`);
   }
 };
