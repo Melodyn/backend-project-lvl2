@@ -7,10 +7,16 @@ const numberifyValues = (obj) => _.mapValues(obj, (value) => (_.isObjectLike(val
   : (parseFloat(value) || value)));
 const parseIni = (data) => numberifyValues(ini.parse(data));
 
-const parsers = {
-  json: JSON.parse,
-  yml: yaml.safeLoad,
-  ini: parseIni,
+export default (data, format) => {
+  switch (format) {
+    case 'json':
+      return JSON.parse(data);
+    case 'yml':
+    case 'yaml':
+      return yaml.safeLoad(data);
+    case 'ini':
+      return parseIni(data);
+    default:
+      throw new Error(`Unexpected input format ${format}`)
+  }
 };
-
-export default (data, format) => parsers[format](data);
