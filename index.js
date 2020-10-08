@@ -3,8 +3,7 @@ import toDiffTree from './src/toDiffTree.js';
 import parse from './src/parsers.js';
 import format from './src/formatters/index.js';
 
-export default (filepath1, filepath2, outputFormat) => {
-  console.log({filepath1, filepath2, ext: getExtension(filepath1), outputFormat });
+export default (filepath1, filepath2, outputFormat = 'stylish') => {
   const data1 = parse(readFile(filepath1), getExtension(filepath1));
   const data2 = parse(readFile(filepath2), getExtension(filepath2));
 
