@@ -15,6 +15,7 @@ beforeAll(() => {
   outputFormats.forEach(
     (format) => {
       const content = readFile([getFixturePath(`expected_${format}.txt`)]);
+      // eslint-disable-next-line
       expectedOutputByFormat[format] = content.trim();
     },
   );
