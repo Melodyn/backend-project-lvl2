@@ -16,7 +16,7 @@ const closeSymbol = '}';
 const addPrefix = (key, type, indent) => `${indent}${labels[type]} ${key}`;
 const stringify = (value, depth) => {
   if (!_.isObject(value)) {
-    return value.toString();
+    return `${value}`;
   }
 
   const indentSize = depth * keyOffset;
