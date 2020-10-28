@@ -1,56 +1,66 @@
 import _ from 'lodash';
 import types from '../types.js';
 
-const labels = { deleted: '-', added: '+', unchanged: ' ' };
-const indentSymbol = '  ';
-const deepKeyOffset = 2;
+const labels = {
+  deleted: '-',
+  added: '+',
+  unchanged: ' ',
+  nested: ' ',
+};
+const keyOffset = 4;
+const prefixOffset = 2;
+const indentSymbol = ' ';
 const openSymbol = '{';
 const closeSymbol = '}';
 
-const addPrefix = (symbol, indent, label = ' ') => `${indent}${label} ${symbol}`;
-
-const stringify = (data, indent) => {
-  if (!_.isObject(data)) {
-    return data;
+const addPrefix = (key, type, indent) => `${indent}${labels[type]} ${key}`;
+const stringify = (value, depth) => {
+  if (!_.isObject(value)) {
+    return value.toString();
   }
 
-  const nestedIndent = addPrefix(indentSymbol, indent);
-  const lines = [
-    openSymbol,
-    ...(_.entries(data).flatMap(
-      ([key, value]) => `${addPrefix(key, nestedIndent)}: ${stringify(value, nestedIndent)}`,
-    )),
-    addPrefix(closeSymbol, indent),
-  ];
+  const indentSize = depth * keyOffset;
+  const indent = indentSymbol.repeat(indentSize);
+  const bracketIndent = indentSymbol.repeat(indentSize - keyOffset);
+  const lines = Object.entries(value)
+    .flatMap(([key, val]) => `${indent}${key}: ${stringify(val, depth + 1)}`);
 
-  return lines.join('\n');
+  return [
+    openSymbol,
+    ...lines,
+    `${bracketIndent}${closeSymbol}`,
+  ].join('\n');
 };
 
 const formatStylish = (diffTree) => {
   const iter = (tree, depth) => tree.flatMap((node) => {
-    const indent = indentSymbol.repeat(depth);
     const {
       type, key, value1, value2, children,
     } = node;
 
+    const indentSize = depth * keyOffset;
+    const keyIndent = indentSymbol.repeat(indentSize - prefixOffset);
+    const bracketIndent = indentSymbol.repeat(indentSize);
+
     switch (type) {
       case types.deleted:
-        return `${addPrefix(key, indent, labels.deleted)}: ${stringify(value1, indent)}`;
+        return `${addPrefix(key, type, keyIndent)}: ${stringify(value1, depth + 1)}`;
       case types.added:
-        return `${addPrefix(key, indent, labels.added)}: ${stringify(value2, indent)}`;
+        return `${addPrefix(key, type, keyIndent)}: ${stringify(value2, depth + 1)}`;
       case types.changed:
         return [
-          `${addPrefix(key, indent, labels.deleted)}: ${stringify(value1, indent)}`,
-          `${addPrefix(key, indent, labels.added)}: ${stringify(value2, indent)}`,
-        ];
-      case types.nested:
-        return [
-          `${addPrefix(key, indent, labels.unchanged)}: ${openSymbol}`,
-          ...(iter(children, depth + deepKeyOffset)),
-          `${addPrefix(closeSymbol, indent)}`,
+          `${addPrefix(key, types.deleted, keyIndent)}: ${stringify(value1, depth + 1)}`,
+          `${addPrefix(key, types.added, keyIndent)}: ${stringify(value2, depth + 1)}`,
         ];
       case types.unchanged:
-        return `${addPrefix(key, indent, labels.unchanged)}: ${stringify(value2, indent)}`;
+        return `${addPrefix(key, type, keyIndent)}: ${stringify(value2, depth + 1)}`;
+      case types.nested: {
+        return [
+          `${addPrefix(key, type, keyIndent)}: ${openSymbol}`,
+          ...iter(children, depth + 1),
+          `${bracketIndent}${closeSymbol}`,
+        ];
+      }
       default:
         throw new Error(`Unexpected node type ${type}`);
     }
