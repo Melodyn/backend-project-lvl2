@@ -1,5 +1,5 @@
 {
-  "name": "@melodyn/backend-project-lvl2",
+  "name": "@hexlet/code",
   "version": "1.0.0",
   "description": "Compares two configuration files and show a difference.",
   "main": "index.js",

@@ -1,4 +1,4 @@
-import { readFile, buildPath } from '../src/fileToolkit';
+import { readFile, buildPath } from '../src/fileToolkit.js';
 import gendiff from '../index.js';
 
 const getFixturePath = (filename) => buildPath(['__fixtures__', filename]);
