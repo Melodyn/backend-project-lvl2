@@ -23,7 +23,7 @@ test:
 test_dev:
 	npm test -s -- --watchAll
 test_coverage:
-	npx -n '--experimental-vm-modules --no-warnings' jest --coverage --coverageProvider=v8
+	npm test -s -- --coverage --coverageProvider=v8
 
 asciinema:
 	asciinema rec
