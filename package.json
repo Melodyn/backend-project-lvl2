@@ -4,6 +4,10 @@
   "description": "Compares two configuration files and show a difference.",
   "main": "index.js",
   "type": "module",
+  "engines": {
+    "node": ">=14",
+    "npm": ">=7.6"
+  },
   "jest": {
     "testEnvironment": "node",
     "transform": {}
