@@ -43,3 +43,4 @@
 * diff nested json formatted as stylish: https://asciinema.org/a/334838
 * diff nested json formatted as plain: https://asciinema.org/a/335274
 * diff flat json formatted as json: https://asciinema.org/a/336188
+
